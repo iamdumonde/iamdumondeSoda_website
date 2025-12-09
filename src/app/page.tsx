@@ -40,7 +40,13 @@ const useIntersectionObserver = (options: IntersectionObserverInit) => {
 
 const AnimatedSection: React.FC<{children: React.ReactNode, className?: string, style?: React.CSSProperties}> = ({ children, className, style }) => {
   const [ref, entry] = useIntersectionObserver({ threshold: 0.1 });
-  const isVisible = entry?.isIntersecting;
+  const [isClient, setIsClient] = useState(false);
+  
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const isVisible = isClient && entry?.isIntersecting;
 
   return (
     <div
@@ -189,7 +195,7 @@ export default function Home() {
                 </h2>
                 <Card className="max-w-md mx-auto bg-card border-2 border-primary/50 p-4 font-sans transition-all duration-500 hover:shadow-xl hover:shadow-primary/10">
                   <CardHeader className="p-2 border-b-8 border-foreground">
-                    <CardTitle className="text-4xl font-black">Nutrition</CardTitle>
+                    <CardTitle>Nutrition</CardTitle>
                     <CardDescription className="text-card-foreground">Portion : 1 canette (355 ml)</CardDescription>
                   </CardHeader>
                   <CardContent className="p-2 space-y-1 text-card-foreground">
