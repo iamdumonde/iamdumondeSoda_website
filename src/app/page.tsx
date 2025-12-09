@@ -262,7 +262,19 @@ export default function Home() {
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                   Rejoignez la révolution du soda. Commandez votre première caisse d'Iamdumonde aujourd'hui et redécouvrez votre amour pour les boissons pétillantes.
                 </p>
-                <Button size="lg" className="rounded-full px-10 py-7 text-lg transition-transform duration-300 hover:scale-105 active:scale-95">Acheter Toutes les Saveurs</Button>
+                <Button 
+                  size="lg" 
+                  className="
+                    rounded-full px-10 py-7 text-lg relative overflow-hidden group 
+                    transition-all duration-500 ease-in-out
+                    hover:scale-105 active:scale-95
+                    before:absolute before:inset-0 before:-translate-x-full 
+                    before:animate-[shimmer_2s_infinite]
+                    before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
+                  "
+                >
+                  <span className="relative z-10">Acheter Toutes les Saveurs</span>
+                </Button>
               </section>
             </AnimatedSection>
 
@@ -274,3 +286,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
