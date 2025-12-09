@@ -38,7 +38,7 @@ const useIntersectionObserver = (options: IntersectionObserverInit) => {
   return [setNode, entry] as const;
 };
 
-const AnimatedSection: React.FC<{children: React.ReactNode, className?: string}> = ({ children, className }) => {
+const AnimatedSection: React.FC<{children: React.ReactNode, className?: string, style?: React.CSSProperties}> = ({ children, className, style }) => {
   const [ref, entry] = useIntersectionObserver({ threshold: 0.1 });
   const isVisible = entry?.isIntersecting;
 
@@ -50,6 +50,7 @@ const AnimatedSection: React.FC<{children: React.ReactNode, className?: string}>
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
         className
       )}
+      style={style}
     >
       {children}
     </div>
@@ -204,18 +205,20 @@ export default function Home() {
               </section>
             </AnimatedSection>
 
-            <AnimatedSection>
-              <section id="avis" className="scroll-mt-20">
+            <section id="avis" className="scroll-mt-20">
+              <AnimatedSection>
                 <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 font-headline">
                   Ce Que Disent Nos Clients
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                  {[
-                    { review: "Le mélange parfait de nostalgie et de bien-être moderne. Je suis accro !", author: "Alex R." },
-                    { review: "Enfin, un soda que je peux boire sans culpabiliser. CocoBenco est mon nouveau rituel de l'après-midi.", author: "Jessica M." },
-                    { review: "Le piquant du gingembre dans IamBenco est incroyable. Si rafraîchissant et tellement meilleur que les autres ginger ales.", author: "David L." }
-                  ].map((item, i) => (
-                    <Card key={i} className="bg-card border-border/50 flex flex-col transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2" style={{transitionDelay: `${i * 100}ms`}}>
+              </AnimatedSection>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {[
+                  { review: "Le mélange parfait de nostalgie et de bien-être moderne. Je suis accro !", author: "Alex R." },
+                  { review: "Enfin, un soda que je peux boire sans culpabiliser. CocoBenco est mon nouveau rituel de l'après-midi.", author: "Jessica M." },
+                  { review: "Le piquant du gingembre dans IamBenco est incroyable. Si rafraîchissant et tellement meilleur que les autres ginger ales.", author: "David L." }
+                ].map((item, i) => (
+                  <AnimatedSection key={i} style={{ transitionDelay: `${i * 150}ms` }}>
+                    <Card className="bg-card border-border/50 flex flex-col h-full transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2">
                       <CardHeader>
                         <div className="flex gap-1">{[...Array(5)].map((_, j) => <Star key={j} className="text-primary fill-primary h-5 w-5"/>)}</div>
                       </CardHeader>
@@ -224,10 +227,10 @@ export default function Home() {
                         <p className="font-bold text-muted-foreground">- {item.author}</p>
                       </CardContent>
                     </Card>
-                  ))}
-                </div>
-              </section>
-            </AnimatedSection>
+                  </AnimatedSection>
+                ))}
+              </div>
+            </section>
 
             <AnimatedSection>
               <section id="faq" className="scroll-mt-20 max-w-3xl mx-auto">
