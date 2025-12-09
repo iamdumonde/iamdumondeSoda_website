@@ -34,6 +34,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
   const imagesRef = useRef<HTMLImageElement[]>([]);
   const frameIndexRef = useRef(0);
   const [isClient, setIsClient] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   useEffect(() => {
     setIsClient(true);
@@ -87,21 +88,28 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     }
     
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      const maxScrollTop = window.innerHeight; // Animation should complete within the hero section
-      const scrollFraction = Math.min(1, scrollTop / maxScrollTop);
-      const frameIndex = Math.min(
-        imageUrls.length - 1,
-        Math.floor(scrollFraction * imageUrls.length)
-      );
+      if (!containerRef.current) return;
+      const { top, height } = containerRef.current.getBoundingClientRect();
+      // Only animate when the hero section is in view
+      if (top < window.innerHeight && top > -height) {
+        const scrollTop = window.scrollY;
+        // Animation should complete within the hero section height
+        const maxScrollTop = height; 
+        const scrollFraction = Math.min(1, Math.max(0, scrollTop / maxScrollTop));
+        
+        const frameIndex = Math.min(
+          imageUrls.length - 1,
+          Math.floor(scrollFraction * imageUrls.length)
+        );
 
-      if (frameIndex !== frameIndexRef.current) {
-        frameIndexRef.current = frameIndex;
-        requestAnimationFrame(() => drawFrame(frameIndex));
+        if (frameIndex !== frameIndexRef.current) {
+          frameIndexRef.current = frameIndex;
+          requestAnimationFrame(() => drawFrame(frameIndex));
+        }
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", resizeCanvas);
 
     return () => {
@@ -111,7 +119,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
   }, [isClient, imageUrls]);
 
   return (
-    <div className="h-screen w-full sticky top-0 -z-10">
+    <div ref={containerRef} className="h-screen w-full sticky top-0 -z-10">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       <div className="absolute inset-0 bg-black/50" />
       

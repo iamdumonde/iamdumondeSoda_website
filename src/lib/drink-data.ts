@@ -24,7 +24,7 @@ export const DRINK_VARIANTS: DrinkVariant[] = [
     id: "cocobenco",
     name: "CocoBenco",
     subtitle: "Soda",
-    description: "A modern take on a classic soda, with a perfect balance of sweet and tart, full of nostalgic flavors.",
+    description: "Une version moderne d'un soda classique, avec un équilibre parfait entre le sucré et l'acidulé, plein de saveurs nostalgiques.",
     imageSequence: generateImageSequence(
       "https://omqaodalyvzbrvckcumi.supabase.co/storage/v1/object/public/assets/soda/frame_0001.webp",
       FRAME_COUNT
@@ -34,7 +34,7 @@ export const DRINK_VARIANTS: DrinkVariant[] = [
     id: "iamcoco",
     name: "IamCoco",
     subtitle: "Soda",
-    description: "A modern functional soda inspired by classic flavors but made with better ingredients.",
+    description: "Un soda fonctionnel moderne inspiré des saveurs classiques mais élaboré avec de meilleurs ingrédients.",
     imageSequence: generateImageSequence(
       "https://omqaodalyvzbrvckcumi.supabase.co/storage/v1/object/public/assets/soda2/frame_0001.webp",
       FRAME_COUNT
@@ -43,8 +43,8 @@ export const DRINK_VARIANTS: DrinkVariant[] = [
   {
     id: "iambenco",
     name: "IamBenco",
-    subtitle: "Ginger Soda",
-    description: "A bright and refreshing citrus soda, with a natural burst of lemon and crisp bubbles.",
+    subtitle: "Soda au Gingembre",
+    description: "Un soda aux agrumes vif et rafraîchissant, avec une explosion naturelle de citron et des bulles croustillantes.",
     imageSequence: generateImageSequence(
       "https://omqaodalyvzbrvckcumi.supabase.co/storage/v1/object/public/assets/soda3/frame_0001.webp",
       FRAME_COUNT
