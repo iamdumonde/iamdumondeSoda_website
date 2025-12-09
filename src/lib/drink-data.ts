@@ -23,8 +23,8 @@ export const DRINK_VARIANTS: DrinkVariant[] = [
   {
     id: "cocobenco",
     name: "CocoBenco",
-    subtitle: "Soda",
-    description: "Une version moderne d'un soda classique, avec un équilibre parfait entre le sucré et l'acidulé, plein de saveurs nostalgiques.",
+    subtitle: "Classic Soda",
+    description: "A modern take on a classic cola, with a perfect balance of sweet and tangy, full of nostalgic flavors.",
     imageSequence: generateImageSequence(
       "https://omqaodalyvzbrvckcumi.supabase.co/storage/v1/object/public/assets/soda/frame_0001.webp",
       FRAME_COUNT
@@ -33,8 +33,8 @@ export const DRINK_VARIANTS: DrinkVariant[] = [
   {
     id: "iamcoco",
     name: "IamCoco",
-    subtitle: "Soda",
-    description: "Un soda fonctionnel moderne inspiré des saveurs classiques mais élaboré avec de meilleurs ingrédients. L'alternative parfaite pour un plaisir sans culpabilité.",
+    subtitle: "Cream Soda",
+    description: "A smooth and creamy delight, this soda offers a velvety texture with hints of vanilla and caramel for a truly decadent experience.",
     imageSequence: generateImageSequence(
       "https://omqaodalyvzbrvckcumi.supabase.co/storage/v1/object/public/assets/soda2/frame_0001.webp",
       FRAME_COUNT
@@ -43,11 +43,13 @@ export const DRINK_VARIANTS: DrinkVariant[] = [
   {
     id: "iambenco",
     name: "IamBenco",
-    subtitle: "Soda au Gingembre",
-    description: "Un soda aux agrumes vif et rafraîchissant, avec une explosion naturelle de citron et des bulles croustillantes pour une finition propre et vivifiante.",
+    subtitle: "Ginger Ale",
+    description: "A bright and zesty citrus soda, bursting with natural lemon-lime flavor and crisp bubbles for a clean, invigorating finish.",
     imageSequence: generateImageSequence(
       "https://omqaodalyvzbrvckcumi.supabase.co/storage/v1/object/public/assets/soda3/frame_0001.webp",
       FRAME_COUNT
     ),
   },
 ];
+
+    

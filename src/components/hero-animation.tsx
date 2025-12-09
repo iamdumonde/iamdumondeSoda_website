@@ -67,9 +67,11 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     };
     
     const drawFrame = (index: number) => {
+      if (!context || !canvasRef.current) return;
       const img = imagesRef.current[index];
-      if (!img || !img.complete || !canvasRef.current) return;
+      if (!img || !img.complete) return;
       
+      const canvas = canvasRef.current;
       const hRatio = canvas.width / img.width;
       const vRatio = canvas.height / img.height;
       const ratio = Math.max(hRatio, vRatio);
@@ -91,12 +93,13 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     const handleScroll = () => {
       if (!containerRef.current) return;
       const scrollTop = window.scrollY;
-      const scrollHeight = containerRef.current.scrollHeight - window.innerHeight;
+      // Animate only within the hero section height (100vh)
+      const scrollHeight = window.innerHeight; 
       const scrollFraction = Math.min(1, Math.max(0, scrollTop / scrollHeight));
       
       const frameIndex = Math.min(
         imageUrls.length - 1,
-        Math.floor(scrollFraction * imageUrls.length)
+        Math.floor(scrollFraction * (imageUrls.length -1))
       );
 
       if (frameIndex !== frameIndexRef.current) {
@@ -108,6 +111,10 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", resizeCanvas);
 
+    // Initial draw
+    drawFrame(0);
+
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", resizeCanvas);
@@ -116,7 +123,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
 
   return (
     <div ref={containerRef} style={{ height: '200vh' }} className="w-full relative">
-      <div className="sticky top-0 h-screen w-full -z-10">
+      <div className="sticky top-0 h-screen w-full">
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 bg-black/50" />
         
@@ -141,10 +148,10 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
               </p>
               <div className="flex items-center gap-4 pt-4">
                 <Button variant="outline" className="rounded-full bg-transparent border-foreground/50 text-foreground hover:bg-foreground/10 hover:text-foreground px-8 py-6 text-base">
-                  Ajouter au Panier
+                  Add to Cart
                 </Button>
                 <Button className="rounded-full px-8 py-6 text-base">
-                  Acheter
+                  Buy Now
                 </Button>
               </div>
             </div>
@@ -184,3 +191,5 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
 };
 
 export default HeroAnimation;
+
+    
