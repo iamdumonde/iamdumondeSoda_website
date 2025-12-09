@@ -1,8 +1,8 @@
 {
   "product-can": {
-    "src": "https://picsum.photos/seed/iambenco/600/600",
+    "src": "https://images.unsplash.com/photo-1624517452489-342d2a733075?q=80&w=1800",
     "width": 600,
     "height": 600,
-    "hint": "soda can"
+    "hint": "three soda cans"
   }
 }
