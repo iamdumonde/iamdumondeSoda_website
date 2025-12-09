@@ -93,13 +93,12 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     const handleScroll = () => {
       if (!containerRef.current) return;
       const scrollTop = window.scrollY;
-      // Animate only within the hero section height (100vh)
-      const scrollHeight = window.innerHeight; 
+      const scrollHeight = containerRef.current.clientHeight - window.innerHeight;
       const scrollFraction = Math.min(1, Math.max(0, scrollTop / scrollHeight));
       
       const frameIndex = Math.min(
         imageUrls.length - 1,
-        Math.floor(scrollFraction * (imageUrls.length -1))
+        Math.floor(scrollFraction * imageUrls.length)
       );
 
       if (frameIndex !== frameIndexRef.current) {
@@ -127,7 +126,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
         <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
         <div className="absolute inset-0 bg-black/50" />
         
-        <div className="relative z-10 h-full w-full container mx-auto px-4 sm:px-6 lg:px-8 text-foreground">
+        <div className="relative z-10 h-full w-full container mx-auto px-4 sm:px-6 lg:px-8 text-white">
           <div className="relative h-full flex items-center justify-between gap-8">
             
             <div
@@ -140,18 +139,18 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
               <h1 className="text-7xl md:text-8xl font-black uppercase tracking-tighter">
                 {name}
               </h1>
-              <p className="text-xl md:text-2xl font-light uppercase tracking-widest text-foreground/80 pt-2">
+              <p className="text-xl md:text-2xl font-light uppercase tracking-widest text-white/80 pt-2">
                 {subtitle}
               </p>
               <p className="mt-4 max-w-md text-lg opacity-90 text-balance">
                 {description}
               </p>
               <div className="flex items-center gap-4 pt-4">
-                <Button variant="outline" className="rounded-full bg-transparent border-foreground/50 text-foreground hover:bg-foreground/10 hover:text-foreground px-8 py-6 text-base">
-                  Add to Cart
+                <Button variant="outline" className="rounded-full bg-transparent border-white/50 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-base">
+                  Ajouter au Panier
                 </Button>
-                <Button className="rounded-full px-8 py-6 text-base">
-                  Buy Now
+                <Button className="rounded-full px-8 py-6 text-base bg-white text-black hover:bg-white/90">
+                  Acheter
                 </Button>
               </div>
             </div>
@@ -171,15 +170,15 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
           </div>
 
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center space-x-6">
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
               <Twitter className="h-5 w-5" />
               <span className="sr-only">Twitter</span>
             </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
               <Instagram className="h-5 w-5" />
               <span className="sr-only">Instagram</span>
             </Link>
-            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
               <Facebook className="h-5 w-5" />
               <span className="sr-only">Facebook</span>
             </Link>
@@ -191,5 +190,3 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
 };
 
 export default HeroAnimation;
-
-    

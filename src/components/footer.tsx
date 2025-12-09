@@ -8,21 +8,21 @@ export default function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-2">
             <p className="text-sm text-muted-foreground">
-              &copy; {new Date().getFullYear()} Iamdumonde. All rights reserved.
+              &copy; {new Date().getFullYear()} Iamdumonde. Tous droits réservés.
             </p>
           </div>
           <div className="flex flex-wrap justify-center items-center gap-x-6 gap-y-2 text-sm">
             <Link href="#" className="text-muted-foreground hover:text-foreground">
-              About
+              À Propos
             </Link>
             <Link href="#" className="text-muted-foreground hover:text-foreground">
               Contact
             </Link>
             <Link href="#" className="text-muted-foreground hover:text-foreground">
-              Privacy Policy
+              Politique de Confidentialité
             </Link>
             <Link href="#" className="text-muted-foreground hover:text-foreground">
-              Terms & Conditions
+              Termes & Conditions
             </Link>
           </div>
         </div>

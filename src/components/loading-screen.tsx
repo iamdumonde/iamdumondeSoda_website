@@ -14,7 +14,7 @@ export default function LoadingScreen({ progress }: LoadingScreenProps) {
         </h1>
         <div className="space-y-2">
             <Progress value={progress} className="w-full h-2" />
-            <p className="text-sm text-muted-foreground">{`Loading... ${Math.round(progress)}%`}</p>
+            <p className="text-sm text-muted-foreground">{`Chargement... ${Math.round(progress)}%`}</p>
         </div>
       </div>
     </div>

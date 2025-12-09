@@ -20,12 +20,16 @@ export default function Home() {
   const [currentVariantIndex, setCurrentVariantIndex] = useState(0);
   const [textAnimationState, setTextAnimationState] = useState<"in" | "out">("in");
 
+  const allImageUrls = useMemo(() => {
+    return DRINK_VARIANTS.flatMap(v => v.imageSequence);
+  }, []);
+
+  const { isLoading, progress } = useImagePreloader(allImageUrls);
+
   const currentVariant = useMemo(() => {
     return DRINK_VARIANTS[currentVariantIndex];
   }, [currentVariantIndex]);
-
-  const allImageUrls = useMemo(() => DRINK_VARIANTS.flatMap(v => v.imageSequence), []);
-  const { isLoading, progress } = useImagePreloader(allImageUrls);
+  
 
   const changeVariant = useCallback((newIndex: number) => {
     setTextAnimationState("out");
@@ -70,20 +74,20 @@ export default function Home() {
         <div className="relative z-10 bg-background w-full">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 space-y-24 md:space-y-32">
             
-            <section id="product" className="scroll-mt-20">
+            <section id="produit" className="scroll-mt-20">
               <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-4">
                    <h2 className="text-3xl sm:text-4xl font-bold font-headline">
-                    A Modern Classic
+                    Un Classique Moderne
                   </h2>
                   <p className="text-lg text-muted-foreground">
-                    Iamdumonde is a modern functional soda inspired by classic flavors but made with better ingredients. We believe in flavor that feels good, a nostalgic taste with a contemporary twist.
+                    Iamdumonde est un soda fonctionnel moderne inspiré des saveurs classiques mais élaboré avec de meilleurs ingrédients. Nous croyons en une saveur qui fait du bien, un goût nostalgique avec une touche contemporaine.
                   </p>
                 </div>
                 <div>
                    <Image
                     src={placeholderImages["product-can"].src}
-                    alt="Can of Iamdumonde soda"
+                    alt="Canette de soda Iamdumonde"
                     width={placeholderImages["product-can"].width}
                     height={placeholderImages["product-can"].height}
                     className="rounded-lg shadow-2xl mx-auto"
@@ -95,39 +99,39 @@ export default function Home() {
 
             <section id="ingredients" className="text-center scroll-mt-20">
               <h2 className="text-3xl sm:text-4xl font-bold mb-12 font-headline">
-                Naturally Sourced Ingredients
+                Ingrédients d'Origine Naturelle
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <Card className="bg-card border-border/50 text-left">
                   <CardHeader>
-                    <CardTitle>Sparkling Water</CardTitle>
+                    <CardTitle>Eau Pétillante</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p>The crisp, effervescent base of our soda.</p>
+                    <p>La base vive et effervescente de notre soda.</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-card border-border/50 text-left">
                   <CardHeader>
-                    <CardTitle>Natural Flavors</CardTitle>
+                    <CardTitle>Arômes Naturels</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p>Extracts from exotic fruits for a unique taste.</p>
+                    <p>Extraits de fruits exotiques pour un goût unique.</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-card border-border/50 text-left">
                   <CardHeader>
-                    <CardTitle>Cane Sugar</CardTitle>
+                    <CardTitle>Sucre de Canne</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p>Just a touch for a perfectly balanced sweetness.</p>
+                    <p>Juste une touche pour une douceur parfaitement équilibrée.</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-card border-border/50 text-left">
                   <CardHeader>
-                    <CardTitle>Functional Botanicals</CardTitle>
+                    <CardTitle>Botaniques Fonctionnels</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p>Adaptogens and nootropics to elevate your day.</p>
+                    <p>Adaptogènes et nootropiques pour élever votre journée.</p>
                   </CardContent>
                 </Card>
               </div>
@@ -135,38 +139,38 @@ export default function Home() {
 
             <section id="nutrition" className="scroll-mt-20">
               <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 font-headline">
-                Nutrition Facts
+                Informations Nutritionnelles
               </h2>
-              <Card className="max-w-md mx-auto bg-card border-2 border-foreground p-4 font-sans">
+              <Card className="max-w-md mx-auto bg-card border-2 border-primary/50 p-4 font-sans">
                 <CardHeader className="p-2 border-b-8 border-foreground">
                   <CardTitle className="text-4xl font-black">Nutrition</CardTitle>
-                  <CardDescription className="text-card-foreground">Serving Size 1 can (12 fl oz)</CardDescription>
+                  <CardDescription className="text-card-foreground">Portion : 1 canette (355 ml)</CardDescription>
                 </CardHeader>
                 <CardContent className="p-2 space-y-1 text-card-foreground">
                   <div className="flex justify-between font-bold border-b-4 border-foreground py-1"><span>Calories</span> <span>35</span></div>
-                  <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Total Fat</span> <span>0g</span></div>
+                  <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Matières grasses</span> <span>0g</span></div>
                   <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Sodium</span> <span>0mg</span></div>
-                  <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Total Carb.</span> <span>9g</span></div>
-                  <div className="flex justify-between border-b-2 border-foreground py-1"><span className="pl-8">Total Sugars</span> <span>5g</span></div>
-                  <div className="flex justify-between font-bold border-b-8 border-foreground py-1"><span className="pl-4">Protein</span> <span>0g</span></div>
-                  <p className="text-xs pt-2 text-muted-foreground">Not a significant source of other nutrients.</p>
+                  <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Glucides</span> <span>9g</span></div>
+                  <div className="flex justify-between border-b-2 border-foreground py-1"><span className="pl-8">Sucres totaux</span> <span>5g</span></div>
+                  <div className="flex justify-between font-bold border-b-8 border-foreground py-1"><span className="pl-4">Protéines</span> <span>0g</span></div>
+                  <p className="text-xs pt-2 text-muted-foreground">Source négligeable d'autres nutriments.</p>
                 </CardContent>
               </Card>
             </section>
 
-            <section id="reviews" className="scroll-mt-20">
+            <section id="avis" className="scroll-mt-20">
               <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 font-headline">
-                What Our Customers Say
+                Ce Que Disent Nos Clients
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {[
-                  { review: "The perfect blend of nostalgia and modern wellness. I'm hooked!", author: "Alex R." },
-                  { review: "Finally, a soda I can feel good about drinking. CocoBenco is my new afternoon ritual.", author: "Jessica M." },
-                  { review: "The ginger kick in IamBenco is incredible. So refreshing and so much better than other ginger ales.", author: "David L." }
+                  { review: "Le mélange parfait de nostalgie et de bien-être moderne. Je suis accro !", author: "Alex R." },
+                  { review: "Enfin, un soda que je peux boire sans culpabiliser. CocoBenco est mon nouveau rituel de l'après-midi.", author: "Jessica M." },
+                  { review: "Le piquant du gingembre dans IamBenco est incroyable. Si rafraîchissant et tellement meilleur que les autres ginger ales.", author: "David L." }
                 ].map((item, i) => (
                   <Card key={i} className="bg-card border-border/50 flex flex-col">
                     <CardHeader>
-                      <div className="flex gap-1">{[...Array(5)].map((_, j) => <Star key={j} className="text-yellow-400 fill-yellow-400 h-5 w-5"/>)}</div>
+                      <div className="flex gap-1">{[...Array(5)].map((_, j) => <Star key={j} className="text-primary fill-primary h-5 w-5"/>)}</div>
                     </CardHeader>
                     <CardContent className="space-y-4 flex-grow flex flex-col justify-between">
                       <p className="text-lg">"{item.review}"</p>
@@ -179,32 +183,32 @@ export default function Home() {
 
             <section id="faq" className="scroll-mt-20 max-w-3xl mx-auto">
               <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 font-headline">
-                Frequently Asked Questions
+                Questions Fréquemment Posées
               </h2>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1">
-                  <AccordionTrigger>Is there any caffeine in your sodas?</AccordionTrigger>
-                  <AccordionContent>No, all of our sodas are caffeine-free. We use natural botanical extracts for a gentle lift without the jitters.</AccordionContent>
+                  <AccordionTrigger>Y a-t-il de la caféine dans vos sodas ?</AccordionTrigger>
+                  <AccordionContent>Non, tous nos sodas sont sans caféine. Nous utilisons des extraits botaniques naturels pour un léger coup de fouet sans l'énervement.</AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                  <AccordionTrigger>Where can I buy Iamdumonde?</AccordionTrigger>
-                  <AccordionContent>Currently, we are available exclusively online through our website. We are working on bringing Iamdumonde to a retailer near you!</AccordionContent>
+                  <AccordionTrigger>Où puis-je acheter Iamdumonde ?</AccordionTrigger>
+                  <AccordionContent>Actuellement, nous sommes disponibles exclusivement en ligne sur notre site web. Nous travaillons à rendre Iamdumonde disponible chez un détaillant près de chez vous !</AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3">
-                  <AccordionTrigger>Are your products vegan and gluten-free?</AccordionTrigger>
-                  <AccordionContent>Yes! All our ingredients are plant-based, and our sodas are certified vegan and gluten-free, making them suitable for various dietary needs.</AccordionContent>
+                  <AccordionTrigger>Vos produits sont-ils végétaliens et sans gluten ?</AccordionTrigger>
+                  <AccordionContent>Oui ! Tous nos ingrédients sont d'origine végétale, et nos sodas sont certifiés végétaliens et sans gluten, ce qui les rend adaptés à divers besoins alimentaires.</AccordionContent>
                 </AccordionItem>
               </Accordion>
             </section>
 
             <section id="contact" className="text-center scroll-mt-20 bg-card rounded-lg p-12 shadow-2xl">
               <h2 className="text-3xl sm:text-4xl font-bold mb-4 font-headline">
-                Ready to Taste the Difference?
+                Prêt à Goûter la Différence ?
               </h2>
               <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Join the soda revolution. Order your first case of Iamdumonde today and rediscover your love for sparkling beverages.
+                Rejoignez la révolution du soda. Commandez votre première caisse d'Iamdumonde aujourd'hui et redécouvrez votre amour pour les boissons pétillantes.
               </p>
-              <Button size="lg" className="rounded-full px-10 py-7 text-lg">Shop All Flavors</Button>
+              <Button size="lg" className="rounded-full px-10 py-7 text-lg">Acheter Toutes les Saveurs</Button>
             </section>
 
           </div>
@@ -215,5 +219,3 @@ export default function Home() {
     </div>
   );
 }
-
-    

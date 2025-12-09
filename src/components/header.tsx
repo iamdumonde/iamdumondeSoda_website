@@ -6,10 +6,10 @@ import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
 const navLinks = [
-  { name: 'Product', href: '#product' },
-  { name: 'Ingredients', href: '#ingredients' },
+  { name: 'Produit', href: '#produit' },
+  { name: 'Ingrédients', href: '#ingredients' },
   { name: 'Nutrition', href: '#nutrition' },
-  { name: 'Reviews', href: '#reviews' },
+  { name: 'Avis', href: '#avis' },
   { name: 'FAQ', href: '#faq' },
   { name: 'Contact', href: '#contact' },
 ];
