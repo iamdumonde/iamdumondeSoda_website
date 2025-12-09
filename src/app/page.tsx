@@ -28,17 +28,18 @@ const useIntersectionObserver = (options: IntersectionObserverInit) => {
 
     observer.current = new IntersectionObserver(([entry]) => setEntry(entry), options);
 
-    if (node) observer.current.observe(node);
+    const currentObserver = observer.current;
 
-    return () => observer.current?.disconnect();
+    if (node) currentObserver.observe(node);
+
+    return () => currentObserver?.disconnect();
   }, [node, options]);
 
   return [setNode, entry] as const;
 };
 
-
 const AnimatedSection: React.FC<{children: React.ReactNode, className?: string}> = ({ children, className }) => {
-  const [ref, entry] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+  const [ref, entry] = useIntersectionObserver({ threshold: 0.1 });
   const isVisible = entry?.isIntersecting;
 
   return (
@@ -54,7 +55,6 @@ const AnimatedSection: React.FC<{children: React.ReactNode, className?: string}>
     </div>
   );
 };
-
 
 export default function Home() {
   const [currentVariantIndex, setCurrentVariantIndex] = useState(0);
@@ -271,3 +271,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
