@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
@@ -47,7 +48,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     const context = canvas.getContext("2d");
     if (!context) return;
     
-    // Preload images
+    // Images should be preloaded by useImagePreloader hook
     imagesRef.current = imageUrls.map(src => {
       const img = new Image();
       img.src = src;
@@ -57,16 +58,17 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     const firstImage = imagesRef.current[0];
 
     const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      if (firstImage && firstImage.complete) {
-        drawFrame(frameIndexRef.current);
-      }
+        if (!canvasRef.current) return;
+        canvasRef.current.width = window.innerWidth;
+        canvasRef.current.height = window.innerHeight;
+        if (imagesRef.current[frameIndexRef.current]?.complete) {
+            drawFrame(frameIndexRef.current);
+        }
     };
     
     const drawFrame = (index: number) => {
       const img = imagesRef.current[index];
-      if (!img || !img.complete) return;
+      if (!img || !img.complete || !canvasRef.current) return;
       
       const hRatio = canvas.width / img.width;
       const vRatio = canvas.height / img.height;
@@ -79,33 +81,27 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     };
 
     if (firstImage) {
-        firstImage.onload = () => {
-            resizeCanvas();
-        };
         if (firstImage.complete) {
             resizeCanvas();
+        } else {
+            firstImage.onload = resizeCanvas;
         }
     }
     
     const handleScroll = () => {
       if (!containerRef.current) return;
-      const { top, height } = containerRef.current.getBoundingClientRect();
-      // Only animate when the hero section is in view
-      if (top < window.innerHeight && top > -height) {
-        const scrollTop = window.scrollY;
-        // Animation should complete within the hero section height
-        const maxScrollTop = height; 
-        const scrollFraction = Math.min(1, Math.max(0, scrollTop / maxScrollTop));
-        
-        const frameIndex = Math.min(
-          imageUrls.length - 1,
-          Math.floor(scrollFraction * imageUrls.length)
-        );
+      const scrollTop = window.scrollY;
+      const scrollHeight = containerRef.current.scrollHeight - window.innerHeight;
+      const scrollFraction = Math.min(1, Math.max(0, scrollTop / scrollHeight));
+      
+      const frameIndex = Math.min(
+        imageUrls.length - 1,
+        Math.floor(scrollFraction * imageUrls.length)
+      );
 
-        if (frameIndex !== frameIndexRef.current) {
-          frameIndexRef.current = frameIndex;
-          requestAnimationFrame(() => drawFrame(frameIndex));
-        }
+      if (frameIndex !== frameIndexRef.current) {
+        frameIndexRef.current = frameIndex;
+        requestAnimationFrame(() => drawFrame(frameIndex));
       }
     };
 
@@ -119,66 +115,68 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
   }, [isClient, imageUrls]);
 
   return (
-    <div ref={containerRef} className="h-screen w-full sticky top-0 -z-10">
-      <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
-      <div className="absolute inset-0 bg-black/50" />
-      
-      <div className="relative z-10 h-full w-full container mx-auto px-4 sm:px-6 lg:px-8 text-foreground">
-        <div className="relative h-full flex items-center justify-between gap-8">
-          
-          <div
-            className={cn(
-              "max-w-lg space-y-2 transition-all duration-500",
-              textAnimationState === "in" ? "animate-fade-in" : "animate-fade-out"
-            )}
-            style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
-          >
-            <h1 className="text-7xl md:text-8xl font-black uppercase tracking-tighter">
-              {name}
-            </h1>
-            <p className="text-xl md:text-2xl font-light uppercase tracking-widest text-foreground/80 pt-2">
-              {subtitle}
-            </p>
-            <p className="mt-4 max-w-md text-lg opacity-90 text-balance">
-              {description}
-            </p>
-            <div className="flex items-center gap-4 pt-4">
-              <Button variant="outline" className="rounded-full bg-transparent border-foreground/50 text-foreground hover:bg-foreground/10 hover:text-foreground px-8 py-6 text-base">
-                Ajouter au Panier
-              </Button>
-              <Button className="rounded-full px-8 py-6 text-base">
-                Acheter
-              </Button>
+    <div ref={containerRef} style={{ height: '200vh' }} className="w-full relative">
+      <div className="sticky top-0 h-screen w-full -z-10">
+        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+        <div className="absolute inset-0 bg-black/50" />
+        
+        <div className="relative z-10 h-full w-full container mx-auto px-4 sm:px-6 lg:px-8 text-foreground">
+          <div className="relative h-full flex items-center justify-between gap-8">
+            
+            <div
+              className={cn(
+                "max-w-lg space-y-2 transition-all duration-500",
+                textAnimationState === "in" ? "animate-fade-in" : "animate-fade-out"
+              )}
+              style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
+            >
+              <h1 className="text-7xl md:text-8xl font-black uppercase tracking-tighter">
+                {name}
+              </h1>
+              <p className="text-xl md:text-2xl font-light uppercase tracking-widest text-foreground/80 pt-2">
+                {subtitle}
+              </p>
+              <p className="mt-4 max-w-md text-lg opacity-90 text-balance">
+                {description}
+              </p>
+              <div className="flex items-center gap-4 pt-4">
+                <Button variant="outline" className="rounded-full bg-transparent border-foreground/50 text-foreground hover:bg-foreground/10 hover:text-foreground px-8 py-6 text-base">
+                  Ajouter au Panier
+                </Button>
+                <Button className="rounded-full px-8 py-6 text-base">
+                  Acheter
+                </Button>
+              </div>
             </div>
+
+            <div className={cn(
+                "transition-opacity duration-500 hidden md:block",
+                textAnimationState === "in" ? "opacity-100" : "opacity-0"
+            )}>
+              <VariantNavigator 
+                onPrev={onPrev}
+                onNext={onNext}
+                currentIndex={currentIndex}
+                totalVariants={totalVariants}
+              />
+            </div>
+
           </div>
 
-          <div className={cn(
-              "transition-opacity duration-500 hidden md:block",
-              textAnimationState === "in" ? "opacity-100" : "opacity-0"
-          )}>
-            <VariantNavigator 
-              onPrev={onPrev}
-              onNext={onNext}
-              currentIndex={currentIndex}
-              totalVariants={totalVariants}
-            />
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center space-x-6">
+            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Twitter className="h-5 w-5" />
+              <span className="sr-only">Twitter</span>
+            </Link>
+            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Instagram className="h-5 w-5" />
+              <span className="sr-only">Instagram</span>
+            </Link>
+            <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Facebook className="h-5 w-5" />
+              <span className="sr-only">Facebook</span>
+            </Link>
           </div>
-
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center space-x-6">
-          <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            <Twitter className="h-5 w-5" />
-            <span className="sr-only">Twitter</span>
-          </Link>
-          <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            <Instagram className="h-5 w-5" />
-            <span className="sr-only">Instagram</span>
-          </Link>
-          <Link href="#" className="text-muted-foreground hover:text-foreground transition-colors">
-            <Facebook className="h-5 w-5" />
-            <span className="sr-only">Facebook</span>
-          </Link>
         </div>
       </div>
     </div>

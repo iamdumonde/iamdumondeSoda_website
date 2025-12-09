@@ -3,58 +3,49 @@
 
 import { useState, useEffect } from "react";
 
+// In-memory cache for loaded image URLs
+const imageCache = new Set<string>();
+
 export function useImagePreloader(imageUrls: string[]) {
   const [isLoading, setIsLoading] = useState(true);
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    setIsLoading(true);
-    setProgress(0);
-    let loadedCount = 0;
-    const totalImages = imageUrls.length;
-
+    // Filter out already cached images
+    const imagesToLoad = imageUrls.filter(url => !imageCache.has(url));
+    const totalImages = imagesToLoad.length;
+    
     if (totalImages === 0) {
+      setProgress(100);
       setIsLoading(false);
       return;
     }
 
-    const imageCache: { [key: string]: HTMLImageElement } = {};
+    setIsLoading(true);
+    setProgress(0);
+    let loadedCount = 0;
 
-    const handleImageLoad = () => {
+    const handleImageLoad = (url: string) => {
       loadedCount++;
+      imageCache.add(url); // Add to cache on successful load
       const newProgress = (loadedCount / totalImages) * 100;
       setProgress(newProgress);
       if (loadedCount === totalImages) {
         // A small delay to allow the progress bar to reach 100% visually
         setTimeout(() => {
           setIsLoading(false);
-        }, 500);
+        }, 300);
       }
     };
 
-    imageUrls.forEach((url) => {
-      // Check if image is already cached by browser
+    imagesToLoad.forEach((url) => {
       const img = new Image();
-      if (img.complete) {
-          handleImageLoad();
-      } else {
-        img.onload = handleImageLoad;
-        img.onerror = handleImageLoad; // Count errors as loaded to not block the UI
-        img.src = url;
-        imageCache[url] = img;
-      }
+      img.onload = () => handleImageLoad(url);
+      img.onerror = () => handleImageLoad(url); // Count errors as loaded to not block the UI
+      img.src = url;
     });
 
-    return () => {
-      // Cleanup function, though images are now in browser cache
-      Object.values(imageCache).forEach(img => {
-        img.onload = null;
-        img.onerror = null;
-      });
-    };
   }, [imageUrls]);
 
   return { isLoading, progress };
 }
-
-    
