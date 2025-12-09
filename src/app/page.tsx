@@ -265,15 +265,31 @@ export default function Home() {
                 <Button 
                   size="lg" 
                   className="
-                    rounded-full px-10 py-7 text-lg relative overflow-hidden group 
-                    transition-all duration-500 ease-in-out
+                    group relative rounded-full px-10 py-7 text-lg font-bold text-primary-foreground 
+                    transition-all duration-300 ease-in-out
                     hover:scale-105 active:scale-95
-                    before:absolute before:inset-0 before:-translate-x-full 
-                    before:animate-[shimmer_2s_infinite]
-                    before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent
+                    bg-primary overflow-hidden
                   "
                 >
-                  <span className="relative z-10">Acheter Toutes les Saveurs</span>
+                  <span 
+                    className="
+                      absolute inset-0 z-0
+                      bg-primary-foreground/30
+                      rounded-full
+                      scale-0 group-hover:scale-125
+                      transition-transform duration-500 ease-in-out
+                    "
+                  ></span>
+                  <span
+                    className="
+                      absolute inset-0 z-10 
+                      bg-gradient-to-br from-primary via-primary to-primary-foreground/5
+                      rounded-full
+                      opacity-0 group-hover:opacity-100
+                      transition-opacity duration-500
+                    "
+                  ></span>
+                  <span className="relative z-20">Acheter Toutes les Saveurs</span>
                 </Button>
               </section>
             </AnimatedSection>
