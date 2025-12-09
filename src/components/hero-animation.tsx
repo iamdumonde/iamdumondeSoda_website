@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useRef, useEffect, useState } from "react";
@@ -89,8 +88,8 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     
     const handleScroll = () => {
       const scrollTop = window.scrollY;
-      const maxScrollTop = document.documentElement.scrollHeight - window.innerHeight;
-      const scrollFraction = scrollTop / maxScrollTop;
+      const maxScrollTop = window.innerHeight; // Animation should complete within the hero section
+      const scrollFraction = Math.min(1, scrollTop / maxScrollTop);
       const frameIndex = Math.min(
         imageUrls.length - 1,
         Math.floor(scrollFraction * imageUrls.length)
@@ -137,10 +136,10 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
             </p>
             <div className="flex items-center gap-4 pt-4">
               <Button variant="outline" className="rounded-full bg-transparent border-foreground/50 text-foreground hover:bg-foreground/10 hover:text-foreground px-8 py-6 text-base">
-                AJOUTER AU
+                Ajouter au Panier
               </Button>
               <Button className="rounded-full px-8 py-6 text-base">
-                PANIER
+                Acheter
               </Button>
             </div>
           </div>
