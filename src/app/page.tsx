@@ -125,13 +125,13 @@ export default function Home() {
                       Iamdumonde est un soda fonctionnel moderne inspiré des saveurs classiques mais élaboré avec de meilleurs ingrédients. Nous croyons en une saveur qui fait du bien, un goût nostalgique avec une touche contemporaine.
                     </p>
                   </div>
-                  <div>
+                  <div className="overflow-hidden rounded-lg shadow-2xl">
                      <Image
                       src={placeholderImages["product-can"].src}
                       alt="Canettes de soda Iamdumonde"
                       width={placeholderImages["product-can"].width}
                       height={placeholderImages["product-can"].height}
-                      className="rounded-lg shadow-2xl mx-auto transform transition-transform duration-500 hover:scale-105"
+                      className="w-full h-auto object-cover transform transition-transform duration-500 hover:scale-105"
                       data-ai-hint={placeholderImages["product-can"].hint}
                     />
                   </div>
@@ -271,5 +271,3 @@ export default function Home() {
     </div>
   );
 }
-
-    
