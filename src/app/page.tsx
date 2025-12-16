@@ -258,7 +258,7 @@ export default function Home() {
                 </p>
                  <Button 
                   className="
-                    group relative rounded-full px-8 py-6 text-base 
+                    group relative w-full sm:w-auto rounded-full px-8 py-6 text-base 
                     sm:px-10 sm:py-7 sm:text-lg 
                     font-bold text-primary-foreground 
                     transition-all duration-300 ease-in-out
