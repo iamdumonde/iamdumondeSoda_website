@@ -19,7 +19,7 @@ export default {
     extend: {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        headline: ['Bebas Neue', 'sans-serif'],
         code: ['monospace'],
       },
       colors: {
@@ -120,3 +120,5 @@ export default {
   },
   plugins: [require('tailwindcss-animate')],
 } satisfies Config;
+
+    

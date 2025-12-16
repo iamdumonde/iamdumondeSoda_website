@@ -147,7 +147,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
                 textShadow: '0 2px 10px rgba(0,0,0,0.7)' 
               }}
             >
-              <h1 className="text-7xl md:text-8xl font-black uppercase tracking-tighter">
+              <h1 className="text-7xl md:text-8xl font-black uppercase tracking-tighter font-headline">
                 {name}
               </h1>
               <p className="text-xl md:text-2xl font-light uppercase tracking-widest text-white/80 pt-2">
@@ -157,7 +157,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
                 {description}
               </p>
               <div className="flex items-center justify-center md:justify-start gap-4 pt-4">
-                <Button variant="outline" className="rounded-full bg-transparent border-white/50 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-base">
+                <Button variant="outline" className="rounded-full bg-white/10 border-white/50 text-white hover:bg-white/20 hover:text-white px-8 py-6 text-base">
                   Ajouter au Panier
                 </Button>
                 <Button className="rounded-full px-8 py-6 text-base bg-white text-black hover:bg-white/90">
@@ -187,3 +187,5 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
 };
 
 export default HeroAnimation;
+
+    
