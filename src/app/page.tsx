@@ -13,7 +13,7 @@ import HeroAnimation from "@/components/hero-animation";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import placeholderImages from "@/lib/placeholder-images.json";
-import { Star } from "lucide-react";
+import { Star, Droplets, Leaf, Package, FlaskConical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -153,14 +153,17 @@ export default function Home() {
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                   {[
-                    { title: "Eau Pétillante", description: "La base vive et effervescente de notre soda." },
-                    { title: "Arômes Naturels", description: "Extraits de fruits exotiques pour un goût unique." },
-                    { title: "Sucre de Canne", description: "Juste une touche pour une douceur parfaitement équilibrée." },
-                    { title: "Botaniques Fonctionnels", description: "Adaptogènes et nootropiques pour élever votre journée." }
+                    { icon: Droplets, title: "Eau Pétillante", description: "La base vive et effervescente de notre soda." },
+                    { icon: Leaf, title: "Arômes Naturels", description: "Extraits de fruits exotiques pour un goût unique." },
+                    { icon: Package, title: "Sucre de Canne", description: "Juste une touche pour une douceur parfaitement équilibrée." },
+                    { icon: FlaskConical, title: "Botaniques Fonctionnels", description: "Adaptogènes et nootropiques pour élever votre journée." }
                   ].map((item, i) => (
                     <AnimatedSection key={i} style={{ transitionDelay: `${i * 100}ms` }}>
                         <Card className="bg-card border-border/50 text-left transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2">
                         <CardHeader>
+                           <div className="mb-4">
+                            <item.icon className="h-8 w-8 text-primary" />
+                          </div>
                           <CardTitle>{item.title}</CardTitle>
                         </CardHeader>
                         <CardContent>
@@ -253,7 +256,7 @@ export default function Home() {
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
                   Rejoignez la révolution du soda. Commandez votre première caisse d'Iamdumonde aujourd'hui et redécouvrez votre amour pour les boissons pétillantes.
                 </p>
-                <Button 
+                 <Button 
                   size="lg" 
                   className="
                     group relative rounded-full px-10 py-7 text-lg font-bold text-primary-foreground 

@@ -11,25 +11,22 @@ interface VariantNavigatorProps {
 
 export default function VariantNavigator({ onPrev, onNext, currentIndex, totalVariants }: VariantNavigatorProps) {
   return (
-    <div className="flex flex-col md:flex-row items-center gap-4 text-white">
-       <span className="text-7xl font-black w-20 text-center md:text-left order-2 md:order-1">
+    <div className="flex flex-col items-center gap-4 text-white">
+       <span className="text-7xl font-black w-20 text-center order-2">
         {String(currentIndex + 1).padStart(2, '0')}
       </span>
-      <div className="flex md:flex-col items-center gap-2 order-1 md:order-2">
-        <Button variant="ghost" size="sm" onClick={onPrev} className="p-0 h-auto hover:bg-transparent text-white/70 hover:text-white">
-          <div className="flex flex-col items-center">
-            <span className="text-xs font-light tracking-widest hidden md:inline">PRÉC</span>
-            <ChevronUp className="h-6 w-6" />
-          </div>
+      <div className="flex items-center gap-4 order-1">
+        <Button variant="outline" size="icon" onClick={onPrev} className="rounded-full h-12 w-12 bg-white/10 text-white/70 border-white/20 hover:bg-white/20 hover:text-white hover:border-white/40 backdrop-blur-sm">
+          <ChevronUp className="h-6 w-6" />
+           <span className="sr-only">Précédent</span>
         </Button>
-        <div className="h-px w-10 md:h-10 md:w-px bg-white/50"></div>
-        <Button variant="ghost" size="sm" onClick={onNext} className="p-0 h-auto hover:bg-transparent text-white/70 hover:text-white">
-          <div className="flex flex-col items-center">
-            <ChevronDown className="h-6 w-6" />
-            <span className="text-xs font-light tracking-widest hidden md:inline">SUIV</span>
-          </div>
+        <Button variant="outline" size="icon" onClick={onNext} className="rounded-full h-12 w-12 bg-white/10 text-white/70 border-white/20 hover:bg-white/20 hover:text-white hover:border-white/40 backdrop-blur-sm">
+          <ChevronDown className="h-6 w-6" />
+           <span className="sr-only">Suivant</span>
         </Button>
       </div>
     </div>
   );
 }
+
+    
