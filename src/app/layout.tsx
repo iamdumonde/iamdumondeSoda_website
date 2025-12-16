@@ -1,10 +1,17 @@
 
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import CustomCursor from "@/components/custom-cursor";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
+const bebas_neue = Bebas_Neue({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-bebas-neue",
+});
 
 export const metadata: Metadata = {
   title: "CineSoda | Iamdumonde",
@@ -23,12 +30,11 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Bebas+Neue&display=swap" rel="stylesheet" />
       </head>
-      <body className={`${inter.variable} font-body antialiased`} suppressHydrationWarning>
+      <body className={cn(inter.variable, bebas_neue.variable, "font-body antialiased")} suppressHydrationWarning>
+        <CustomCursor />
         {children}
         <Toaster />
       </body>
     </html>
   );
 }
-
-    
