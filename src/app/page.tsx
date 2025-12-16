@@ -249,7 +249,7 @@ export default function Home() {
             </AnimatedSection>
 
             <AnimatedSection>
-              <section id="contact" className="text-center scroll-mt-20 bg-card rounded-lg p-8 sm:p-12 shadow-2xl">
+               <section id="contact" className="text-center scroll-mt-20 bg-card rounded-lg p-6 sm:p-12 shadow-2xl">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-4 font-headline">
                   Prêt à Goûter la Différence ?
                 </h2>
@@ -258,7 +258,9 @@ export default function Home() {
                 </p>
                  <Button 
                   className="
-                    group relative rounded-full px-8 py-6 text-base sm:px-10 sm:py-7 sm:text-lg font-bold text-primary-foreground 
+                    group relative rounded-full px-8 py-6 text-base 
+                    sm:px-10 sm:py-7 sm:text-lg 
+                    font-bold text-primary-foreground 
                     transition-all duration-300 ease-in-out
                     hover:scale-105 active:scale-95
                     bg-primary overflow-hidden
@@ -295,3 +297,5 @@ export default function Home() {
     </div>
   );
 }
+
+    
