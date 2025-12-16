@@ -5,7 +5,6 @@ import React, { useState, useEffect, useMemo, useCallback, useRef } from "react"
 import Image from "next/image";
 import { DRINK_VARIANTS } from "@/lib/drink-data";
 import type { DrinkVariant } from "@/lib/types";
-import { useImagePreloader } from "@/hooks/use-image-preloader";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import LoadingScreen from "@/components/loading-screen";
@@ -67,12 +66,18 @@ export default function Home() {
   const [currentVariantIndex, setCurrentVariantIndex] = useState(0);
   const [textAnimationState, setTextAnimationState] = useState<"in" | "out">("in");
   const [isChangingVariant, setIsChangingVariant] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const currentVariant = useMemo(() => {
     return DRINK_VARIANTS[currentVariantIndex];
   }, [currentVariantIndex]);
+  
+  useEffect(() => {
+    // Simulate initial asset loading
+    const timer = setTimeout(() => setIsLoading(false), 500); // Adjust time as needed
+    return () => clearTimeout(timer);
+  }, []);
 
-  const { isLoading, progress } = useImagePreloader(currentVariant.imageSequence);
 
   const changeVariant = useCallback((newIndex: number) => {
     if (isChangingVariant || newIndex === currentVariantIndex) return;
@@ -83,17 +88,9 @@ export default function Home() {
     setTimeout(() => {
       setCurrentVariantIndex(newIndex);
       setTextAnimationState("in");
-      // The useImagePreloader hook will now start loading the new set of images.
-      // The loading screen will be displayed because `isLoading` will become true.
-      // We need another mechanism to remove the loading screen once done.
+      setIsChangingVariant(false);
     }, 500); // Corresponds to text fade-out animation
   }, [isChangingVariant, currentVariantIndex]);
-
-  useEffect(() => {
-    if (!isLoading) {
-      setIsChangingVariant(false);
-    }
-  }, [isLoading]);
 
 
   const handleNextVariant = useCallback(() => {
@@ -107,7 +104,7 @@ export default function Home() {
   }, [currentVariantIndex, changeVariant]);
 
   if (isLoading) {
-    return <LoadingScreen progress={progress} />;
+    return <LoadingScreen progress={100} />;
   }
 
   return (
@@ -307,5 +304,3 @@ export default function Home() {
     </div>
   );
 }
-
-    

@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import VariantNavigator from "./variant-navigator";
+import { useImagePreloader } from "@/hooks/use-image-preloader";
 
 interface HeroAnimationProps {
   imageUrls: string[];
@@ -37,19 +38,19 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
   const [isClient, setIsClient] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollOpacity, setScrollOpacity] = useState(1);
+  const { isLoading, progress } = useImagePreloader(imageUrls);
   
   useEffect(() => {
     setIsClient(true);
   }, []);
 
   useEffect(() => {
-    if (!isClient || !canvasRef.current || imageUrls.length === 0) return;
+    if (!isClient || !canvasRef.current || imageUrls.length === 0 || isLoading) return;
 
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     if (!context) return;
     
-    // Images should be preloaded by useImagePreloader hook
     imagesRef.current = imageUrls.map(src => {
       const img = new Image();
       img.src = src;
@@ -70,7 +71,6 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     const drawFrame = (index: number) => {
       if (!context || !canvasRef.current) return;
       const img = imagesRef.current[index];
-      // *** FIX: Only draw if the image is loaded and not broken ***
       if (!img || !img.complete || img.naturalHeight === 0) return;
       
       const canvas = canvasRef.current;
@@ -96,12 +96,10 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
       if (!containerRef.current) return;
       const scrollTop = window.scrollY;
 
-      // Handle text opacity
-      const fadeOutDistance = 200; // pixels to scroll before text is fully transparent
+      const fadeOutDistance = 200;
       const newOpacity = Math.max(0, 1 - scrollTop / fadeOutDistance);
       setScrollOpacity(newOpacity);
 
-      // Handle image sequence animation
       const scrollHeight = containerRef.current.clientHeight - window.innerHeight;
       const scrollFraction = Math.min(1, Math.max(0, scrollTop / scrollHeight));
       
@@ -119,20 +117,18 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", resizeCanvas);
 
-    // Initial draw
     drawFrame(0);
-
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", resizeCanvas);
     };
-  }, [isClient, imageUrls]);
+  }, [isClient, imageUrls, isLoading]);
 
   return (
     <div ref={containerRef} style={{ height: '200vh' }} className="w-full relative">
       <div className="sticky top-0 h-screen w-full">
-        <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
+        <canvas ref={canvasRef} className={cn("absolute inset-0 w-full h-full transition-opacity duration-500", isLoading ? 'opacity-0' : 'opacity-100')} />
         <div className="absolute inset-0 bg-black/50" />
         
         <div className="relative z-10 h-full w-full container mx-auto px-4 sm:px-6 lg:px-8 text-white">

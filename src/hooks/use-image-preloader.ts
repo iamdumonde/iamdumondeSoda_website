@@ -38,12 +38,20 @@ export function useImagePreloader(imageUrls: string[]) {
       }
     };
 
-    imagesToLoad.forEach((url) => {
-      const img = new Image();
-      img.onload = () => handleImageLoad(url);
-      img.onerror = () => handleImageLoad(url); // Count errors as loaded to not block the UI
-      img.src = url;
+    const imageLoaders = imagesToLoad.map(url => {
+        const img = new Image();
+        img.onload = () => handleImageLoad(url);
+        img.onerror = () => handleImageLoad(url); // Count errors as loaded to not block the UI
+        img.src = url;
+        return img;
     });
+
+    return () => {
+        imageLoaders.forEach(img => {
+            img.onload = null;
+            img.onerror = null;
+        });
+    };
 
   }, [imageUrls]);
 
