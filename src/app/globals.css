@@ -29,26 +29,26 @@
   }
 
   .dark {
-    --background: 224 71.4% 4.1%; /* Deep Navy Blue */
+    --background: 222 84% 4.9%; /* Richer, darker blue */
     --foreground: 210 40% 98%; /* White */
-    --card: 224 71.4% 8.1%;
+    --card: 222 84% 8%; /* Darker card background */
     --card-foreground: 210 40% 98%;
-    --popover: 224 71.4% 4.1%;
+    --popover: 222 84% 4.9%;
     --popover-foreground: 210 40% 98%;
-    --primary: 45 95% 60%; /* Gold Accent */
-    --primary-foreground: 224 71.4% 4.1%;
+    --primary: 45 95% 51%; /* Bolder Gold */
+    --primary-foreground: 222 84% 4.9%; /* Dark blue for primary text */
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
-    --accent: 45 95% 60%; /* Gold Accent */
-    --accent-foreground: 224 71.4% 4.1%;
+    --accent: 45 95% 51%; /* Bolder Gold */
+    --accent-foreground: 222 84% 4.9%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
+    --border: 217.2 32.6% 25.5%; /* Slightly lighter border */
     --input: 217.2 32.6% 17.5%;
-    --ring: 45 95% 60%;
-    --brand-color: 45 95% 60%; /* Fallback brand color */
+    --ring: 45 95% 51%; /* Bolder Gold */
+    --brand-color: 45 95% 51%; /* Fallback brand color */
   }
 }
 
