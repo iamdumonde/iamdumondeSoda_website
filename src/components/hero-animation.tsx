@@ -157,10 +157,10 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
                 {description}
               </p>
               <div className="flex items-center justify-center md:justify-start gap-4 pt-4">
-                <Button variant="outline" className="rounded-full bg-white/10 border-white/50 text-white hover:bg-white/20 hover:text-white px-8 py-6 text-base">
+                <Button variant="outline" className="rounded-full bg-white/10 border-white/50 text-white hover:bg-white/20 hover:text-white px-6 py-4 text-sm sm:px-8 sm:py-6 sm:text-base">
                   Ajouter au Panier
                 </Button>
-                <Button className="rounded-full px-8 py-6 text-base bg-white text-black hover:bg-white/90">
+                <Button className="rounded-full px-6 py-4 text-sm sm:px-8 sm:py-6 sm:text-base bg-white text-black hover:bg-white/90">
                   Acheter
                 </Button>
               </div>
@@ -187,5 +187,3 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
 };
 
 export default HeroAnimation;
-
-    
