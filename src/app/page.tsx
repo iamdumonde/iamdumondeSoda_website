@@ -259,7 +259,7 @@ export default function Home() {
                  <Button 
                   size="lg" 
                   className="
-                    group relative rounded-full px-8 py-6 sm:px-10 sm:py-7 text-base sm:text-lg font-bold text-primary-foreground 
+                    group relative rounded-full px-6 py-5 text-sm sm:px-10 sm:py-7 sm:text-lg font-bold text-primary-foreground 
                     transition-all duration-300 ease-in-out
                     hover:scale-105 active:scale-95
                     bg-primary overflow-hidden
@@ -296,5 +296,7 @@ export default function Home() {
     </div>
   );
 }
+
+    
 
     
