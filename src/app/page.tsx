@@ -152,38 +152,23 @@ export default function Home() {
                   Ingrédients d'Origine Naturelle
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                  <Card className="bg-card border-border/50 text-left transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2">
-                    <CardHeader>
-                      <CardTitle>Eau Pétillante</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>La base vive et effervescente de notre soda.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="bg-card border-border/50 text-left transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2 [transition-delay:50ms]">
-                    <CardHeader>
-                      <CardTitle>Arômes Naturels</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Extraits de fruits exotiques pour un goût unique.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="bg-card border-border/50 text-left transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2 [transition-delay:100ms]">
-                    <CardHeader>
-                      <CardTitle>Sucre de Canne</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Juste une touche pour une douceur parfaitement équilibrée.</p>
-                    </CardContent>
-                  </Card>
-                  <Card className="bg-card border-border/50 text-left transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2 [transition-delay:150ms]">
-                    <CardHeader>
-                      <CardTitle>Botaniques Fonctionnels</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Adaptogènes et nootropiques pour élever votre journée.</p>
-                    </CardContent>
-                  </Card>
+                  {[
+                    { title: "Eau Pétillante", description: "La base vive et effervescente de notre soda." },
+                    { title: "Arômes Naturels", description: "Extraits de fruits exotiques pour un goût unique." },
+                    { title: "Sucre de Canne", description: "Juste une touche pour une douceur parfaitement équilibrée." },
+                    { title: "Botaniques Fonctionnels", description: "Adaptogènes et nootropiques pour élever votre journée." }
+                  ].map((item, i) => (
+                    <AnimatedSection key={i} style={{ transitionDelay: `${i * 100}ms` }}>
+                        <Card className="bg-card border-border/50 text-left transition-all duration-300 hover:shadow-primary/20 hover:shadow-lg hover:-translate-y-2">
+                        <CardHeader>
+                          <CardTitle>{item.title}</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <p>{item.description}</p>
+                        </CardContent>
+                      </Card>
+                    </AnimatedSection>
+                  ))}
                 </div>
               </section>
             </AnimatedSection>
@@ -243,7 +228,7 @@ export default function Home() {
                 <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 font-headline">
                   Questions Fréquemment Posées
                 </h2>
-                <Accordion type="single" collapsible className="w-full">
+                <Accordion type="single" collapsible className="w-full space-y-4">
                   <AccordionItem value="item-1">
                     <AccordionTrigger>Y a-t-il de la caféine dans vos sodas ?</AccordionTrigger>
                     <AccordionContent>Non, tous nos sodas sont sans caféine. Nous utilisons des extraits botaniques naturels pour un léger coup de fouet sans l'énervement.</AccordionContent>
@@ -308,3 +293,5 @@ export default function Home() {
     </div>
   );
 }
+
+    

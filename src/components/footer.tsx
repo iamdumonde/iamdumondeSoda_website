@@ -24,19 +24,19 @@ export default function Footer() {
           <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon" asChild>
                 <Link href="#">
-                  <Twitter className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+                  <Twitter className="h-5 w-5 text-muted-foreground transition-colors duration-300 hover:text-primary" />
                   <span className="sr-only">Twitter</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
                 <Link href="#">
-                  <Instagram className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+                  <Instagram className="h-5 w-5 text-muted-foreground transition-colors duration-300 hover:text-primary" />
                   <span className="sr-only">Instagram</span>
                 </Link>
               </Button>
               <Button variant="ghost" size="icon" asChild>
                 <Link href="#">
-                  <Facebook className="h-5 w-5 text-muted-foreground hover:text-primary transition-colors" />
+                  <Facebook className="h-5 w-5 text-muted-foreground transition-colors duration-300 hover:text-primary" />
                   <span className="sr-only">Facebook</span>
                 </Link>
               </Button>
@@ -55,3 +55,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+    
