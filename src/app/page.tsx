@@ -39,7 +39,7 @@ const useIntersectionObserver = (options: IntersectionObserverInit) => {
 };
 
 const AnimatedSection: React.FC<{children: React.ReactNode, className?: string, style?: React.CSSProperties}> = ({ children, className, style }) => {
-  const [ref, entry] = useIntersectionObserver({ threshold: 0.1 });
+  const [ref, entry] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   const [isClient, setIsClient] = useState(false);
   
   useEffect(() => {
@@ -195,17 +195,17 @@ export default function Home() {
                 </h2>
                 <Card className="max-w-md mx-auto bg-card border-2 border-primary/50 p-4 font-sans transition-all duration-500 hover:shadow-xl hover:shadow-primary/10">
                   <CardHeader className="p-2 border-b-8 border-foreground">
-                    <CardTitle>Nutrition</CardTitle>
+                    <CardTitle className="font-headline tracking-tighter">Nutrition</CardTitle>
                     <CardDescription className="text-card-foreground">Portion : 1 canette (355 ml)</CardDescription>
                   </CardHeader>
-                  <CardContent className="p-2 space-y-1 text-card-foreground">
-                    <div className="flex justify-between font-bold border-b-4 border-foreground py-1"><span>Calories</span> <span>35</span></div>
+                  <CardContent className="p-2 space-y-1 text-card-foreground font-headline">
+                    <div className="flex justify-between font-black text-lg border-b-4 border-foreground py-1"><span>Calories</span> <span>35</span></div>
                     <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Matières grasses</span> <span>0g</span></div>
                     <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Sodium</span> <span>0mg</span></div>
                     <div className="flex justify-between font-bold border-b-2 border-foreground py-1"><span className="pl-4">Glucides</span> <span>9g</span></div>
-                    <div className="flex justify-between border-b-2 border-foreground py-1"><span className="pl-8">Sucres totaux</span> <span>5g</span></div>
+                    <div className="flex justify-between border-b-2 border-foreground py-1 text-sm"><span className="pl-8">Sucres totaux</span> <span>5g</span></div>
                     <div className="flex justify-between font-bold border-b-8 border-foreground py-1"><span className="pl-4">Protéines</span> <span>0g</span></div>
-                    <p className="text-xs pt-2 text-muted-foreground">Source négligeable d'autres nutriments.</p>
+                    <p className="text-xs pt-2 text-muted-foreground font-sans">Source négligeable d'autres nutriments.</p>
                   </CardContent>
                 </Card>
               </section>
@@ -308,5 +308,3 @@ export default function Home() {
     </div>
   );
 }
-
-    

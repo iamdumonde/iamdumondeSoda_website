@@ -127,7 +127,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
         <div className="absolute inset-0 bg-black/50" />
         
         <div className="relative z-10 h-full w-full container mx-auto px-4 sm:px-6 lg:px-8 text-white">
-          <div className="relative h-full flex items-center justify-between gap-8">
+          <div className="relative h-full flex flex-col md:flex-row items-center justify-center md:justify-between gap-8 text-center md:text-left">
             
             <div
               className={cn(
@@ -145,7 +145,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
               <p className="mt-4 max-w-md text-lg opacity-90 text-balance">
                 {description}
               </p>
-              <div className="flex items-center gap-4 pt-4">
+              <div className="flex items-center justify-center md:justify-start gap-4 pt-4">
                 <Button variant="outline" className="rounded-full bg-transparent border-white/50 text-white hover:bg-white/10 hover:text-white px-8 py-6 text-base">
                   Ajouter au Panier
                 </Button>
@@ -156,7 +156,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
             </div>
 
             <div className={cn(
-                "transition-opacity duration-500 hidden md:block",
+                "transition-opacity duration-500",
                 textAnimationState === "in" ? "opacity-100" : "opacity-0"
             )}>
               <VariantNavigator 
