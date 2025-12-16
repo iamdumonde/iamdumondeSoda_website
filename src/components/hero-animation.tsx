@@ -36,6 +36,7 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
   const frameIndexRef = useRef(0);
   const [isClient, setIsClient] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollOpacity, setScrollOpacity] = useState(1);
   
   useEffect(() => {
     setIsClient(true);
@@ -93,6 +94,13 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     const handleScroll = () => {
       if (!containerRef.current) return;
       const scrollTop = window.scrollY;
+
+      // Handle text opacity
+      const fadeOutDistance = 200; // pixels to scroll before text is fully transparent
+      const newOpacity = Math.max(0, 1 - scrollTop / fadeOutDistance);
+      setScrollOpacity(newOpacity);
+
+      // Handle image sequence animation
       const scrollHeight = containerRef.current.clientHeight - window.innerHeight;
       const scrollFraction = Math.min(1, Math.max(0, scrollTop / scrollHeight));
       
@@ -134,7 +142,10 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
                 "max-w-lg space-y-2 transition-all duration-500",
                 textAnimationState === "in" ? "animate-fade-in" : "animate-fade-out"
               )}
-              style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
+              style={{ 
+                opacity: scrollOpacity,
+                textShadow: '0 2px 10px rgba(0,0,0,0.7)' 
+              }}
             >
               <h1 className="text-7xl md:text-8xl font-black uppercase tracking-tighter">
                 {name}
