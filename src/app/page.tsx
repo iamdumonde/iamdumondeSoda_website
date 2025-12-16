@@ -66,25 +66,35 @@ const AnimatedSection: React.FC<{children: React.ReactNode, className?: string, 
 export default function Home() {
   const [currentVariantIndex, setCurrentVariantIndex] = useState(0);
   const [textAnimationState, setTextAnimationState] = useState<"in" | "out">("in");
-
-  const allImageUrls = useMemo(() => {
-    return DRINK_VARIANTS.flatMap(v => v.imageSequence);
-  }, []);
-
-  const { isLoading, progress } = useImagePreloader(allImageUrls);
+  const [isChangingVariant, setIsChangingVariant] = useState(false);
 
   const currentVariant = useMemo(() => {
     return DRINK_VARIANTS[currentVariantIndex];
   }, [currentVariantIndex]);
-  
+
+  const { isLoading, progress } = useImagePreloader(currentVariant.imageSequence);
 
   const changeVariant = useCallback((newIndex: number) => {
+    if (isChangingVariant || newIndex === currentVariantIndex) return;
+
+    setIsChangingVariant(true);
     setTextAnimationState("out");
+
     setTimeout(() => {
       setCurrentVariantIndex(newIndex);
       setTextAnimationState("in");
-    }, 500); // Corresponds to animation duration
-  }, []);
+      // The useImagePreloader hook will now start loading the new set of images.
+      // The loading screen will be displayed because `isLoading` will become true.
+      // We need another mechanism to remove the loading screen once done.
+    }, 500); // Corresponds to text fade-out animation
+  }, [isChangingVariant, currentVariantIndex]);
+
+  useEffect(() => {
+    if (!isLoading) {
+      setIsChangingVariant(false);
+    }
+  }, [isLoading]);
+
 
   const handleNextVariant = useCallback(() => {
     changeVariant((currentVariantIndex + 1) % DRINK_VARIANTS.length);

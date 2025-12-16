@@ -1,7 +1,7 @@
 
 import type { DrinkVariant } from "./types";
 
-const FRAME_COUNT = 240; // Number of images in the sequence
+const FRAME_COUNT = 80; // Number of images in the sequence
 
 /**
  * Generates a sequence of image URLs for the parallax animation.

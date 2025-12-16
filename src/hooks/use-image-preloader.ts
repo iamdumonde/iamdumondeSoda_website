@@ -11,7 +11,7 @@ export function useImagePreloader(imageUrls: string[]) {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Filter out already cached images
+    // A fresh key on HeroAnimation will re-mount it, so we can re-evaluate the images to load.
     const imagesToLoad = imageUrls.filter(url => !imageCache.has(url));
     const totalImages = imagesToLoad.length;
     
