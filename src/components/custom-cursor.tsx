@@ -19,7 +19,12 @@ const CustomCursor: React.FC = () => {
     const moveCursor = (e: MouseEvent) => {
       const { clientX, clientY } = e;
       if (cursorRef.current) {
-        cursorRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0)`;
+        // Using requestAnimationFrame for smoother updates
+        requestAnimationFrame(() => {
+          if (cursorRef.current) {
+            cursorRef.current.style.transform = `translate3d(${clientX}px, ${clientY}px, 0)`;
+          }
+        });
       }
 
       const target = e.target as HTMLElement;
@@ -49,9 +54,9 @@ const CustomCursor: React.FC = () => {
       ref={cursorRef}
       className={cn(
         'fixed top-0 left-0 z-[9999] pointer-events-none -translate-x-1/2 -translate-y-1/2',
-        'rounded-full bg-primary mix-blend-difference',
-        'transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]',
-        isPointer ? 'w-6 h-6' : 'w-3 h-3'
+        'rounded-full border-2 border-primary',
+        'transition-[width,height] duration-300 ease-in-out',
+        isPointer ? 'w-8 h-8' : 'w-4 h-4'
       )}
     />
   );
