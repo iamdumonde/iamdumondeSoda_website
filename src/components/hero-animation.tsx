@@ -169,20 +169,6 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
 
           </div>
 
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center space-x-6">
-            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
-              <Twitter className="h-5 w-5" />
-              <span className="sr-only">Twitter</span>
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
-              <Instagram className="h-5 w-5" />
-              <span className="sr-only">Instagram</span>
-            </Link>
-            <Link href="#" className="text-muted-foreground hover:text-white transition-colors">
-              <Facebook className="h-5 w-5" />
-              <span className="sr-only">Facebook</span>
-            </Link>
-          </div>
         </div>
       </div>
     </div>

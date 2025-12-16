@@ -56,7 +56,11 @@ export default function Header() {
     setIsMenuOpen(!isMenuOpen);
   };
   
-  const handleLinkClick = () => {
+  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    document.querySelector(href)?.scrollIntoView({
+      behavior: 'smooth'
+    });
     setIsMenuOpen(false);
   };
 
@@ -77,6 +81,7 @@ export default function Header() {
                 <a
                   key={link.name}
                   href={link.href}
+                  onClick={(e) => handleLinkClick(e, link.href)}
                   className={cn(
                     "text-sm font-medium transition-colors hover:text-primary",
                     activeSection === link.href.substring(1)
@@ -106,7 +111,7 @@ export default function Header() {
       )}>
         <div className="container mx-auto h-full">
             <div className="flex justify-between items-center h-16">
-                 <Link href="/" className="flex items-center gap-2 font-bold text-lg" onClick={handleLinkClick}>
+                 <Link href="/" className="flex items-center gap-2 font-bold text-lg" onClick={() => setIsMenuOpen(false)}>
                     <span>Iamdumonde</span>
                 </Link>
                 <Button variant="ghost" size="icon" onClick={toggleMenu}>
@@ -119,7 +124,7 @@ export default function Header() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={handleLinkClick}
+                onClick={(e) => handleLinkClick(e, link.href)}
                 className={cn(
                   "text-2xl font-medium transition-colors hover:text-primary",
                   activeSection === link.href.substring(1)
