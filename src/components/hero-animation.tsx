@@ -70,7 +70,8 @@ const HeroAnimation: React.FC<HeroAnimationProps> = ({
     const drawFrame = (index: number) => {
       if (!context || !canvasRef.current) return;
       const img = imagesRef.current[index];
-      if (!img || !img.complete) return;
+      // *** FIX: Only draw if the image is loaded and not broken ***
+      if (!img || !img.complete || img.naturalHeight === 0) return;
       
       const canvas = canvasRef.current;
       const hRatio = canvas.width / img.width;
